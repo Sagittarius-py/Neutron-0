@@ -1,0 +1,50 @@
+{
+    "naglowek": {
+        "opis": {
+            "data_badania": "",
+            "rodzaj_protokolu": ""
+        },
+        "zleceniodawca": {
+            "nazwa": "Tauron",
+            "adres": "Kwiatowa 12, Nysa"
+        },
+        "obiekt": {
+            "nazwa": "Biuro glowne",
+            "lokalizacja": "cokolwiekowa 32, kraków"
+        },
+        "przyrzady_pomiarowe": [
+            {
+                "typ": "MI3155",
+                "nazwa_miernika": "miernik wielofunkcyjny",
+                "nr_seryjny": "SN 007"
+            },
+            {
+                "typ": "NA5667",
+                "nazwa_miernika": "miernik napięciowy",
+                "nr_seryjny": "AN 17"
+            }
+        ]
+    },
+    "wyniki-pomiarow": {
+        "nazwa_obiektu_1": {
+            "nazwa_pietra1": {
+                "nazwa_pomieszczenia_1": {
+                    "OGL": [
+                        {
+                            "Lp": 1,
+                            "przedmiot_ogledzin": "Spełniono wymagania bezpieczeństwa zgodnie z wymaganiami przepisów",
+                            "ocena": true
+                        }
+                    ],
+                    "RI-ZWAR": [
+                        {
+                            "Lp": 1,
+                            "Symbol": "adw",
+                            "Nazwa_obwodu": "żyła jakaśtam"
+                        }
+                    ]
+                }
+            }
+        }
+    }
+}

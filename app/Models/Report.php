@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Report extends Model
 {
     protected $table = 'reports';
-    protected $fillable = ['user_id', 'report_number', 'report'];
+    protected $fillable = ['user_id', 'report_number',  'created_at', 'updated_at', 'report'];
 
     protected $casts = [
         'report' => 'array',

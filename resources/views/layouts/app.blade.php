@@ -23,7 +23,7 @@
 </head>
 
 <body>
-    <div class="bg-slate-400 min-h-screen h-full">
+    <div class="bg-slate-400 min-h-screen h-full pb-4">
         @include('components.navbar')
 
         <div class=" mt-4 px-4">
