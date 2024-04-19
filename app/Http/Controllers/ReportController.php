@@ -6,9 +6,11 @@ use App\Models\Report;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Log;
 
 class ReportController extends Controller
 {
+
     public function index()
     {
         // Get the ID of the authenticated user
@@ -20,17 +22,18 @@ class ReportController extends Controller
         return view('reports.index', compact('reports'));
     }
 
+
     public function show($id)
     {
         $report = Report::findOrFail($id);
         return view('reports.show', compact('report'));
     }
 
-    public function create()
+    public function create($any)
     {
         $jsonData = File::get(resource_path('json/example_report.json'));
-
         $data = json_decode($jsonData, true);
+
 
         return view('reports.create', ['data' => $data]);
     }

@@ -5,21 +5,21 @@
             "rodzaj_protokolu": ""
         },
         "zleceniodawca": {
-            "nazwa": "Tauron",
-            "adres": "Kwiatowa 12, Nysa"
+            "nazwa_zleceniodawcy": "Tauron",
+            "adres_zleceniodawcy": "Kwiatowa 12, Nysa"
         },
         "obiekt": {
-            "nazwa": "Biuro glowne",
-            "lokalizacja": "cokolwiekowa 32, kraków"
+            "nazwa_obiektu": "Biuro glowne",
+            "lokalizacja_obiektu": "cokolwiekowa 32, kraków"
         },
         "przyrzady_pomiarowe": [
             {
-                "typ": "MI3155",
+                "typ_przyrzadu": "MI3155",
                 "nazwa_miernika": "miernik wielofunkcyjny",
                 "nr_seryjny": "SN 007"
             },
             {
-                "typ": "NA5667",
+                "typ_przyrzadu": "NA5667",
                 "nazwa_miernika": "miernik napięciowy",
                 "nr_seryjny": "AN 17"
             }
