@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Report;
+use App\Models\TestDevice;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
@@ -29,13 +30,29 @@ class ReportController extends Controller
         return view('reports.show', compact('report'));
     }
 
-    public function create($any)
+    public function create()
     {
-        $jsonData = File::get(resource_path('json/example_report.json'));
-        $data = json_decode($jsonData, true);
+        $userId = Auth::id();
 
 
-        return view('reports.create', ['data' => $data]);
+        // Find the last report created by the user
+        $lastReport = Report::where('user_id', $userId)->latest()->first();
+
+        // Increment the report_number or start from 1 if no previous reports exist
+        $reportNumber = $lastReport ? $lastReport->report_number + 1 : 1;
+
+        // Create a new report instance
+        $report = new Report();
+
+        // Fill in the necessary data for the report
+        $report->user_id = $userId; // Assuming the user_id is a field in the reports table
+        $report->report_number = $reportNumber;
+        // You can fill in other fields as necessary
+
+        // Save the report to the database
+        $report->save();
+
+        return redirect()->route('reports.edit', ['id' => $report->id]);
     }
 
     public function store(Request $request)
@@ -82,7 +99,8 @@ class ReportController extends Controller
     public function edit($id)
     {
         $report = Report::findOrFail($id);
-        return view('reports.edit', compact('report'));
+        $testDevices = TestDevice::where('report_id', $id)->get();
+        return view('reports.create', compact('report', 'testDevices', 'id'));
     }
 
     public function update(Request $request, $id)

@@ -1,16 +1,13 @@
 {
     "naglowek": {
-        "opis": {
-            "data_badania": "",
-            "rodzaj_protokolu": ""
-        },
+        "opis": { "data_badania": "", "rodzaj_protokolu": "" },
         "zleceniodawca": {
             "nazwa_zleceniodawcy": "Tauron",
             "adres_zleceniodawcy": "Kwiatowa 12, Nysa"
         },
         "obiekt": {
             "nazwa_obiektu": "Biuro glowne",
-            "lokalizacja_obiektu": "cokolwiekowa 32, kraków"
+            "lokalizacja_obiektu": "cokolwiekowa 32, krak\u00f3w"
         },
         "przyrzady_pomiarowe": [
             {
@@ -20,7 +17,7 @@
             },
             {
                 "typ_przyrzadu": "NA5667",
-                "nazwa_miernika": "miernik napięciowy",
+                "nazwa_miernika": "miernik napi\u0119ciowy",
                 "nr_seryjny": "AN 17"
             }
         ]
@@ -32,7 +29,7 @@
                     "OGL": [
                         {
                             "Lp": 1,
-                            "przedmiot_ogledzin": "Spełniono wymagania bezpieczeństwa zgodnie z wymaganiami przepisów",
+                            "przedmiot_ogledzin": "Spe\u0142niono wymagania bezpiecze\u0144stwa zgodnie z wymaganiami przepis\u00f3w",
                             "ocena": true
                         }
                     ],
@@ -40,7 +37,7 @@
                         {
                             "Lp": 1,
                             "Symbol": "adw",
-                            "Nazwa_obwodu": "żyła jakaśtam"
+                            "Nazwa_obwodu": "\u017cy\u0142a jaka\u015btam"
                         }
                     ]
                 }
