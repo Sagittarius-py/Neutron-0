@@ -1,10 +1,6 @@
 <!-- resources/views/reports/create.blade.php -->
 @extends('layouts.app')
 
-@php
-$url = route('reports.edit', ['id' => $id]);
-@endphp
-
 @section('content')
 <div class="flex w-full">
     <div id="left" class="min-h-screen w-1/5 bg-white relative pt-16 flex flex-col ">

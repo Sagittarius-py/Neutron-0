@@ -27,6 +27,7 @@ class ReportController extends Controller
     public function show($id)
     {
         $report = Report::findOrFail($id);
+        error_log($report->id);
         return view('reports.show', compact('report'));
     }
 
