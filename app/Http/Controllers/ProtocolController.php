@@ -5,13 +5,15 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Protocol;
+use App\Models\ProtocolType;
 use Illuminate\Http\Request;
 
 class ProtocolController extends Controller
 {
     public function index()
     {
-        $protocols = Protocol::all();
+        $user = Auth::user();
+        $protocols = Protocol::where('user_id', $user->id)->get();
         return view('protocols.index', compact('protocols'));
     }
 
@@ -24,24 +26,28 @@ class ProtocolController extends Controller
 
     public function show(Protocol $protocol)
     {
+
         return view('protocols.show', compact('protocol'));
     }
 
     public function edit(Protocol $protocol)
     {
-        return view('protocols.edit', compact('protocol'));
+        $protocol_types = ProtocolType::all();
+        return view('protocols.edit', compact('protocol', 'protocol_types'));
     }
     public function update(Request $request, Protocol $protocol)
     {
         $validatedData = $request->validate([
             'title' => 'string|max:255',
             'number' => 'string|max:255',
+            'protocol_type_id' => 'numeric|max:20',
             'date' => 'date',
             'notes' => 'string',
         ]);
 
         $protocol->update([
             'title' => $validatedData['title'],
+            'protocol_type_id' => $validatedData['protocol_type_id'],
             'number' => $validatedData['number'],
             'date' => $validatedData['date'],
             'notes' => $validatedData['notes'],
