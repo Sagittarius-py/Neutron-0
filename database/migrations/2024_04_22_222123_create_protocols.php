@@ -16,13 +16,13 @@ class CreateProtocols extends Migration
         Schema::create('protocols', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->string('title');
-            $table->string('number');
-            $table->date('date');
-            $table->foreignId('object_id')->nullable()->constrained()->onDelete('set null');
+            $table->string('title')->default('');
+            $table->string('number')->default('');
+            $table->date('date')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->foreignId('item_id')->nullable()->constrained()->onDelete('set null');
             $table->foreignId('protocol_type_id')->nullable()->constrained()->onDelete('set null');
-            $table->text('verdict')->nullable();
-            $table->text('notes')->nullable();
+            $table->text('verdict')->default('');
+            $table->text('notes')->default('');
             $table->timestamps();
         });
     }

@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\ProtocolController;
 use App\Http\Controllers\SectionController;
 use App\Http\Controllers\TestDeviceController;
 
@@ -23,6 +24,13 @@ Auth::routes();
 // Define routes after authentication middleware
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+    Route::get('/protocols', [ProtocolController::class, 'index'])->name('protocols.index');
+    Route::get('/protocols/create', [ProtocolController::class, 'create'])->name('protocols.create');
+    Route::get('/protocols/{protocol}', [ProtocolController::class, 'show'])->name('protocols.show');
+    Route::put('/protocols/{protocol}', [ProtocolController::class, 'update'])->name('protocols.update');
+    Route::delete('/protocols/{protocol}', [ProtocolController::class, 'destroy'])->name('protocols.destroy');
+    Route::get('/protocols/{protocol}/edit', [ProtocolController::class, 'edit'])->name('protocols.edit');
 
     // Define routes related to reports and test devices
     Route::get('/reports', [ReportController::class, 'index'])->name('reports.index');

@@ -35,6 +35,8 @@ Kluczowe cechy projektu obejmują:
 
 `npm run dev`
 
+`php artisan migrate:rollback`
+
 `php artisan migrate`
 
 `php artisan serve`
@@ -44,7 +46,8 @@ Kluczowe cechy projektu obejmują:
 
 # TODO
 <ol>
-<li>Modele</li>
+<li>Naprawić migracje (zamiast nullable() lepiej default(''))</li>
 <li>Kontrolery</li>
+<li>Porządek (cleanup stare kontrolery)</li>
 <li>Widoki</li>
 </ol>
