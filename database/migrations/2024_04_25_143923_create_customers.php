@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateDevices extends Migration
+class CreateCustomers extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,11 @@ class CreateDevices extends Migration
      */
     public function up()
     {
-        Schema::create('devices', function (Blueprint $table) {
+        Schema::create('customers', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->string('device_type');
+            $table->foreignId('user_id')->default(2)->constrained()->onDelete('cascade');
             $table->string('name');
-            $table->string('serial_number');
-            $table->date('check_date');
-            $table->string('document_file')->nullable();
+            $table->string('address');
             $table->timestamps();
         });
     }
@@ -32,6 +29,7 @@ class CreateDevices extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('devices');
+
+        Schema::dropIfExists('customers');
     }
 }

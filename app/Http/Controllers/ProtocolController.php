@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Protocol;
 use App\Models\ProtocolType;
+use App\Models\Device;
 use Illuminate\Http\Request;
 
 class ProtocolController extends Controller
@@ -33,7 +34,9 @@ class ProtocolController extends Controller
     public function edit(Protocol $protocol)
     {
         $protocol_types = ProtocolType::all();
-        return view('protocols.edit', compact('protocol', 'protocol_types'));
+        $user = Auth::user();
+        $devices = Device::where('user_id', $user->id)->get();;
+        return view('protocols.edit', compact('protocol', 'protocol_types', 'devices'));
     }
     public function update(Request $request, Protocol $protocol)
     {

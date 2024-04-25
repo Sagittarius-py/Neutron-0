@@ -13,6 +13,11 @@ class Protocol extends Model
         'title',
         'number',
         'date',
+        //
+        'customer_id',
+        'object',
+        'object_address',
+        // 
         'item_id',
         'protocol_type_id',
         'verdict',
