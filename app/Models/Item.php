@@ -28,7 +28,7 @@ class Item extends Model
         return $this->hasMany(Test::class);
     }
 
-    protected $primaryKey = 'id';
+    public $primaryKey = 'id';
 
     public $timestamps = false;
 }

@@ -13,9 +13,11 @@ class CreateProtocolDevices extends Migration
      */
     public function up()
     {
-        Schema::create('protocol_devices', function (Blueprint $table) {
+        Schema::create('device_protocol', function (Blueprint $table) {
             $table->foreignId('protocol_id')->constrained()->onDelete('cascade');
             $table->foreignId('device_id')->constrained()->onDelete('cascade');
+
+            // Add primary key declaration for protocol_id and device_id columns
             $table->primary(['protocol_id', 'device_id']);
         });
     }
@@ -27,6 +29,6 @@ class CreateProtocolDevices extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('protocol_devices');
+        Schema::dropIfExists('protocol_device');
     }
 }

@@ -25,6 +25,9 @@ class CreateProtocols extends Migration
             $table->text('verdict')->default('');
             $table->text('notes')->default('');
             $table->timestamps();
+            $table->string("object")->nullable();
+            $table->string("object_address")->nullable();
+            $table->foreignId('customer_id')->default(0)->constrained()->onDelete('cascade');
         });
     }
 
@@ -35,6 +38,12 @@ class CreateProtocols extends Migration
      */
     public function down()
     {
+        Schema::table('protocols', function (Blueprint $table) {
+            // Drop columns
+            // Drop foreign key constraint
+            $table->dropForeign(['customer_id']);
+            $table->dropColumn('customer_id');
+        });
         Schema::dropIfExists('protocols');
     }
 }
