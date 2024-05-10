@@ -1,0 +1,1 @@
+<div class="bg-blue-500 h-full w-48"></div>

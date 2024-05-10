@@ -15,7 +15,7 @@ class CreateProtocolNextTests extends Migration
     {
         Schema::create('protocol_next_tests', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('protocol_id')->constrained()->onDelete('cascade');
+            $table->foreignId('protocol_id')->constrained()->onDelete('cascade')->name('fk_protocol_next_tests_protocol_id');
             $table->date('next_test_date');
             $table->timestamps();
         });

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateProtocolDevices extends Migration
+class CreateDevicesProtocol extends Migration
 {
     /**
      * Run the migrations.
@@ -14,13 +14,12 @@ class CreateProtocolDevices extends Migration
     public function up()
     {
         Schema::create('device_protocol', function (Blueprint $table) {
-            $table->foreignId('protocol_id')->constrained()->onDelete('cascade');
-            $table->foreignId('device_id')->constrained()->onDelete('cascade');
-
-            // Add primary key declaration for protocol_id and device_id columns
+            $table->foreignId('protocol_id')->constrained()->onDelete('cascade')->name('fk_protocol_device_protocol_id');
+            $table->foreignId('device_id')->constrained()->onDelete('cascade')->name('fk_protocol_device_device_id');
             $table->primary(['protocol_id', 'device_id']);
         });
     }
+
 
     /**
      * Reverse the migrations.
@@ -29,6 +28,6 @@ class CreateProtocolDevices extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('protocol_device');
+        Schema::dropIfExists('device_protocol');
     }
 }

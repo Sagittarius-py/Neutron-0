@@ -19,6 +19,7 @@ class ProtocolSeeder extends Seeder
     {
 
         $it = Item::create([
+            'protocol_id' => 1,
             'name' => "Sample item",
         ]);
 

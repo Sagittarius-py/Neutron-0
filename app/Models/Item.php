@@ -9,6 +9,7 @@ class Item extends Model
 {
     use HasFactory;
     protected $fillable = [
+        'protocol_id',
         'name',
         'parent_id',
     ];
