@@ -6,7 +6,8 @@ use App\Http\Controllers\ReportController;
 use App\Http\Controllers\ProtocolController;
 use App\Http\Controllers\SectionController;
 use App\Http\Controllers\DeviceController;
-
+use App\Http\Controllers\ItemController;
+use App\Http\Controllers\TestsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,6 +33,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::delete('/protocols/{protocol}', [ProtocolController::class, 'destroy'])->name('protocols.destroy');
     Route::get('/protocols/{protocol}/edit/{any?}', [ProtocolController::class, 'edit'])->name('protocols.edit');
 
+
+
+    Route::get('/protocols/{protocol}/edit/results', 'ItemController@index');
     // Define routes related to reports and test devices
     // Route::get('/reports', [ReportController::class, 'index'])->name('reports.index');
     // Route::post('/reports', [ReportController::class, 'store'])->name('reports.store');

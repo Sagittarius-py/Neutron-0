@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -24,10 +25,16 @@ class Item extends Model
     {
         return $this->hasMany(Item::class, 'parent_id');
     }
+
+    public function forms()
+    {
+        return $this->hasMany(Form::class);
+    }
     public function tests()
     {
         return $this->hasMany(Test::class);
     }
+
 
     public $primaryKey = 'id';
 
