@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container mx-auto">
+<div class="container mx-auto w-full">
     <div class="flex w-full">
 
         <div id="left" class="min-h-max w-1/5 bg-white relative flex flex-col ">
@@ -18,7 +18,7 @@
 
 
         </div>
-        <div id=" right" class="min-h-max w-4/5 bg-white relative p-4 border-l-2 border-black">
+        <div id=" right" class="min-h-max w-4/5 bg-white relative border-l-2 border-black">
             @if(request()->url() == ('http://127.0.0.1:8000/protocols/'.$protocol->id.'/edit/header'))
             @include('protocols.protocol_sections.header')
             @elseif(request()->url() == ('http://127.0.0.1:8000/protocols/'.$protocol->id.'/edit/devices'))

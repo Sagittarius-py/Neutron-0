@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Models\Template;
+use App\Models\Form;
 use App\Models\Column;
 
 class FormColumnSeeder extends Seeder
@@ -15,8 +16,13 @@ class FormColumnSeeder extends Seeder
      */
     public function run()
     {
-        $form = Template::create([
+        $template = Template::create([
             'name' => 'OGL - Oględziny Obiektu Elektrycznego',
+        ]);
+
+        $form = Form::create([
+            'item_id' => 1,
+            'template_id' => $template->id,
         ]);
 
         $column[] = Column::create([
@@ -26,10 +32,10 @@ class FormColumnSeeder extends Seeder
 
         $column[] = Column::create([
             'name' => 'Ocena',
-            'type' => 'text'
+            'type' => 'grade'
         ]);
 
 
-        $form->column()->saveMany($column);
+        $template->columns()->saveMany($column);
     }
 }

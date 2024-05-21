@@ -27,5 +27,10 @@ class Form extends Model
         return $this->belongsTo(Item::class);
     }
 
+    public function records()
+    {
+        return $this->hasMany(Record::class);
+    }
+
     public $timestamps = false;
 }

@@ -8,6 +8,7 @@ use App\Models\Protocol;
 use App\Models\ProtocolType;
 use App\Models\Device;
 use App\Models\Item;
+use App\Models\Template;
 
 use Illuminate\Http\Request;
 
@@ -39,7 +40,8 @@ class ProtocolController extends Controller
         $user = Auth::user();
         $devices = Device::where('user_id', $user->id)->get();
         $protocolItems = Item::where("protocol_id", $protocol->id)->get();
-        return view('protocols.edit', compact('protocol', 'protocol_types', 'devices', 'protocolItems',));
+        $templates = Template::all();
+        return view('protocols.edit', compact('protocol', 'protocol_types', 'devices', 'protocolItems', 'templates'));
     }
     public function update(Request $request, Protocol $protocol)
     {

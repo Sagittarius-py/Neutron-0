@@ -5,26 +5,25 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Template extends Model
+class Record extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'name',
+        'form_id',
     ];
 
 
-    public $primaryKey = 'id';
+    protected $primaryKey = 'id';
 
-
-    public function forms()
+    protected function form()
     {
-        return $this->hasMany(Form::class);
+        return $this->belongsTo(Form::class);
     }
 
-    public function columns()
+    public function values()
     {
-        return $this->belongsToMany(Column::class);
+        return $this->hasMany(Value::class);
     }
 
     public $timestamps = false;

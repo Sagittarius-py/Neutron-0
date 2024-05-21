@@ -20,6 +20,17 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
+    <style>
+        input {
+            border: 1px solid #ccc;
+        }
+
+        td input,
+        td select {
+            width: 100%;
+        }
+    </style>
+
 </head>
 
 <body>

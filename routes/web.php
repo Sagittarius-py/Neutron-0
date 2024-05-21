@@ -8,6 +8,12 @@ use App\Http\Controllers\SectionController;
 use App\Http\Controllers\DeviceController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\TestsController;
+use App\Http\Controllers\FormController;
+use App\Http\Controllers\RecordController;
+
+use App\Models\Record;
+use App\Models\Value;
+use App\Models\Column;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,24 +39,35 @@ Route::group(['middleware' => 'auth'], function () {
     Route::delete('/protocols/{protocol}', [ProtocolController::class, 'destroy'])->name('protocols.destroy');
     Route::get('/protocols/{protocol}/edit/{any?}', [ProtocolController::class, 'edit'])->name('protocols.edit');
 
-
-
-    Route::get('/protocols/{protocol}/edit/results', 'ItemController@index');
-    // Define routes related to reports and test devices
-    // Route::get('/reports', [ReportController::class, 'index'])->name('reports.index');
-    // Route::post('/reports', [ReportController::class, 'store'])->name('reports.store');
-    // Route::get('/reports/create', [ReportController::class, 'create'])->name('reports.create');
-    // Route::get('/reports/{id}', [ReportController::class, 'show'])->name('reports.show');
-
-    // Route::get('/reports/edit/{id}/header', [ReportController::class, 'edit'])->name('reports.edit');
-    // Route::get('/reports/edit/{id}/tests', [ReportController::class, 'edit'])->name('reports.edit');
-    // Route::get('/reports/edit/{id}/additional', [ReportController::class, 'edit'])->name('reports.edit');
-
-    // Route::put('/reports/{id}', [ReportController::class, 'update'])->name('reports.update');
-    // Route::delete('/reports/{id}', [ReportController::class, 'destroy'])->name('reports.destroy');
-
     Route::get('/devices', [DeviceController::class, 'index']);
     Route::post('/devices', [DeviceController::class, 'store'])->name('devices.store');
     Route::put('/devices/{testDevice}', [DeviceController::class, 'update'])->name('devices.update');
     Route::delete('/devices/{testDevice}', [DeviceController::class, 'destroy'])->name('devices.destroy');
+    Route::post('/items', [ItemController::class, 'store'])->name('items.store');
+
+    Route::post('/forms/create', [FormController::class, 'create'])->name('forms.create');
+    Route::post('/forms/fetch-data', [FormController::class, 'getFormData'])->name('forms.fetchData');
+
+    Route::post('/add-record', [RecordController::class, 'addRecord'])->name('record.create');
+
+    Route::patch('/{record}/{column}/{value}', function (Record $record, Column $column, $value) {
+        // Find the corresponding Value for the given Record and Column
+        $existingValue = Value::where('record_id', $record->id)
+            ->where('column_id', $column->id)
+            ->first();
+
+        if ($existingValue) {
+            // If the Value exists, update its value
+            $existingValue->update(['value' => $value]);
+        } else {
+            // If the Value doesn't exist, create a new one
+            Value::create([
+                'record_id' => $record->id,
+                'column_id' => $column->id,
+                'value' => $value,
+            ]);
+        }
+
+        return response()->json(['message' => 'Value updated or added successfully']);
+    });
 });
