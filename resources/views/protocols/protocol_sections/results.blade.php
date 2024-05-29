@@ -32,9 +32,12 @@
     </div>
 
     <div id="table-container" class="w-full" style="display: none;">
-        @isset($form)
+        @if(null !== session('form'))
+        <script>
+        {{$form = session('form')}}
+        </script>
         @include('protocols.protocol_sections.formTable')
-        @endisset
+        @endif
         <div id="form-data-container"></div>
     </div>
 </div>

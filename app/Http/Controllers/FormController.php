@@ -34,6 +34,7 @@ class FormController extends Controller
         // Pobieramy formularz wraz z powiązanymi danymi za pomocą Eloquent
         $form = Form::find($formId); // Pobranie formularza po ID
         // Zwracamy dane w formacie JSON
-        return view('protocols.protocol_sections.formTable', compact('form'))->render();
+        return redirect()->back()->with('form', $form);
+        // return view('protocols.protocol_sections.formTable', compact('form'))->render();
     }
 }

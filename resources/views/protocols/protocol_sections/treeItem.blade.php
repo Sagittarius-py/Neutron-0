@@ -18,7 +18,7 @@
             <form action="{{ route('forms.fetchData') }}" method="POST">
                 @csrf
                 <input type="hidden" id="form_id" name="form_id" value="{{$form->id}}">
-                <button class="p-0 m-0" type="submit">{{$form->template->name}}</button>
+                <button class="p-0 m-0 item" type="submit">{{$form->template->name}}</button>
             </form>
 
     </div>
