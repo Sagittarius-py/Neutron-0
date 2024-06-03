@@ -7,7 +7,7 @@ use App\Models\Template;
 use App\Models\Form;
 use App\Models\Column;
 
-class SWZSeeder extends Seeder
+class UKROKSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -17,25 +17,21 @@ class SWZSeeder extends Seeder
     public function run()
     {
         $template = Template::create([
-            'name' => 'SWZ - Badanie skuteczności ochrony przeciwporażeniowej przez samoczynne wyłączenie zasilania',
-        ]);
-
-        $form = Form::create([
-            'item_id' => 8,
-            'template_id' => $template->id,
+            'name' => 'U-KROK - Bada2nie napięcia rażenia krokowego',
         ]);
 
         $columns = [
-            ['name' => 'Symbol', 'type' => 'text'],
-            ['name' => 'Nazwa Obwodu', 'type' => 'text'],
-            ['name' => 'Typ Zabezpieczenia', 'type' => 'text'],
-            ['name' => 'In [A]', 'type' => 'number'],
-            ['name' => 'Ia [A]', 'type' => 'number'],
-            ['name' => 'Ta [s]', 'type' => 'number'],
-            ['name' => 'Zsz [Ω]', 'type' => 'number'],
-            ['name' => 'Zs [Ω]', 'type' => 'number'],
+            ['name' => 'Miejsce Pomiaru', 'type' => 'text'],
+            ['name' => 'Metoda', 'type' => 'text'],
+            ['name' => 'Izw [A]', 'type' => 'number'],
+            ['name' => 'Ip [A]', 'type' => 'number'],
+            ['name' => 'Uz [V]', 'type' => 'number'],
+            ['name' => 'Ud [V]', 'type' => 'number'],
         ];
-
+        $existingColumn = Column::find(3);
+        if ($existingColumn) {
+            $template->columns()->attach($existingColumn->id);
+        }
         foreach ($columns as $columnData) {
             $column = Column::create($columnData);
             $template->columns()->attach($column->id); // Zakładając, że istnieje tabela pośrednia `column_template` i relacja `columns` w modelu `Template`

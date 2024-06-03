@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CustomerController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\ReportController;
@@ -36,20 +37,29 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/protocols/create', [ProtocolController::class, 'create'])->name('protocols.create');
     Route::get('/protocols/{protocol}', [ProtocolController::class, 'show'])->name('protocols.show');
     Route::put('/protocols/{protocol}', [ProtocolController::class, 'update'])->name('protocols.update');
-    Route::delete('/protocols/{protocol}', [ProtocolController::class, 'destroy'])->name('protocols.destroy');
+    Route::get('/protocols/delete/{protocol}', [ProtocolController::class, 'destroy'])->name('protocols.destroy');
     Route::get('/protocols/{protocol}/edit/{any?}', [ProtocolController::class, 'edit'])->name('protocols.edit');
+    Route::get('/report/{protocol}', [ProtocolController::class, 'generate'])->name('report.generate');
+
+    Route::get('/customers', [CustomerController::class, 'index']);
+    Route::post('/customers', [CustomerController::class, 'store'])->name('customers.store');
+    Route::delete('/customers/{testDevice}', [CustomerController::class, 'destroy'])->name('customers.destroy');
 
     Route::get('/devices', [DeviceController::class, 'index']);
     Route::post('/devices', [DeviceController::class, 'store'])->name('devices.store');
-    Route::put('/devices/{testDevice}', [DeviceController::class, 'update'])->name('devices.update');
     Route::delete('/devices/{testDevice}', [DeviceController::class, 'destroy'])->name('devices.destroy');
-    Route::post('/items', [ItemController::class, 'store'])->name('items.store');
+    Route::post('/devices/addSelected/{protocol}', [DeviceController::class, 'addSelected'])->name('devices.addSelected');
+
+    Route::post('/items/create', [ItemController::class, 'store'])->name('items.store');
+    Route::post('/items/delete', [ItemController::class, 'destroy'])->name('items.destroy');
+    Route::post('/items/update', [ItemController::class, 'update'])->name('items.update');
 
     Route::post('/forms/create', [FormController::class, 'create'])->name('forms.create');
     Route::post('/forms/fetch-data', [FormController::class, 'getFormData'])->name('forms.fetchData');
 
-    Route::post('/add-record', [RecordController::class, 'addRecord'])->name('record.create');
+    Route::post('/forms/reload', [FormController::class, 'reload'])->name('forms.reload');
 
+    Route::post('/add-record', [RecordController::class, 'addRecord'])->name('record.create');
     Route::patch('/{record}/{column}/{value}', function (Record $record, Column $column, $value) {
         // Find the corresponding Value for the given Record and Column
         $existingValue = Value::where('record_id', $record->id)

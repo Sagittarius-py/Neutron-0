@@ -51,6 +51,11 @@ class Protocol extends Model
         return $this->hasMany(ProtocolNextTest::class);
     }
 
+    public function customer()
+    {
+        return $this->belongsTo(Customer::class);
+    }
+
     public $primaryKey = 'id';
 
     public $timestamps = false;

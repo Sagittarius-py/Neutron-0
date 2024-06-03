@@ -19,7 +19,7 @@
                     <!-- Logout Button -->
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
-                        <button type="submit" class="btn btn-primary mt-4">
+                        <button type="submit" class="bg-orange-500 mt-4 p-4">
                             {{ __('Logout') }}
                         </button>
                     </form>

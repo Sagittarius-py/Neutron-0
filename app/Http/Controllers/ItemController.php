@@ -11,17 +11,37 @@ class ItemController extends Controller
 
     public function store(Request $request)
     {
-        error_log('Some message here.');
         $validated = $request->validate([
             'protocol_id' => 'required',
             'name' => 'required',
             'parent_id' => 'nullable',
         ]);
 
+        $item = Item::create($validated);
+
+        return redirect()->back()->with('item', $item->id);
+    }
+
+    public function destroy(Request $request)
+    {
+        $item = Item::find($request['parent_id']);
+        error_log($item);
+        if ($item && $item->parent_id !== null) {
+            $item->delete();
+        }
+        return redirect()->back()->with('success', 'gitara');
+    }
 
 
-        Item::create($validated);
+    public function update(Request $request)
+    {
+        $item = Item::find($request['parent_id']);
 
-        return redirect()->back()->with('success', 'Item created successfully.');
+        $item->update([
+            'name' => $request['name']
+        ]);
+
+
+        return redirect()->back()->with('success', 'gitara');
     }
 }

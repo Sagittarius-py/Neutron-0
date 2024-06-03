@@ -27,7 +27,7 @@ class CreateProtocols extends Migration
             $table->timestamps();
             $table->string("object")->nullable();
             $table->string("object_address")->nullable();
-            $table->foreignId('customer_id')->default(0)->constrained()->onDelete('cascade');
+            $table->foreignId('customer_id')->nullable()->constrained()->onDelete('cascade');
         });
     }
 

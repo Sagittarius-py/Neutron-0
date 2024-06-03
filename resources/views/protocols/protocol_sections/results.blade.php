@@ -1,27 +1,5 @@
-<div class="flex no-wrap items-start  relative pt-12">
-    <div class="w-full h-12 bg-red-500 absolute top-0 flex flex-row justify-around no-wrap items-center">
-        <button class="px-2 bg-white" id="clear" onclick="clearSelectedItem()" style="display: none;">Wyczyść zaznaczenie obiektu</button>
-        <form action="{{ route('forms.create') }}" method="POST">
-            @csrf
-            <select>
-                <option value=""></option>
-                @foreach ($templates as $template)
-                <option value="{{$template->id}}">{{$template->name}}</option>
-                @endforeach
-            </select>
-            <input type="hidden" id="parent_id-2" name="parent_id" value="">
-            <button type="submit" class="px-2 bg-white">Dodaj Formularz</button>
-        </form>
-        <form action="{{ route('items.store') }}" method="POST">
-            @csrf
-            <input type="hidden" id="protocol_id" name="protocol_id" value="{{$protocol->id}}">
-            <input type="text" name="name" placeholder="Item name" required>
-            <input type="hidden" id="parent_id" name="parent_id" value="">
-            <button type="submit" class="px-2 bg-white">Dodaj Obiekt</button>
-        </form>
-    </div>
-
-    <div class="bg-blue-500 h-full w-64 min-h-96 overflow-x-scroll text-nowrap">
+<div class="flex no-wrap items-start  relative">
+    <div class="bg-slate-400 h-full h-full overflow-x-scroll text-nowrap" style="min-height: 100%; width: 400px">
         <ul>
             @foreach($protocolItems as $item)
             @if(is_null($item->parent_id))
@@ -31,12 +9,47 @@
         </ul>
     </div>
 
-    <div id="table-container" class="w-full" style="display: none;">
+    <div id="table-container" class="w-full" style="display: block;">
+
         @if(null !== session('form'))
-        <script>
-        {{$form = session('form')}}
-        </script>
+        @php
+        $form = session('form')
+        @endphp
         @include('protocols.protocol_sections.formTable')
+        @else
+        <div class="h-94 w-94 flex justify-between flex-col p-4">
+            <form action="{{ route('forms.create') }}" method="POST">
+                @csrf
+                <select name="template_id" id="template_id" style="border: 1px solid black; width: 300px; margin-bottom: 20px">
+                    @foreach ($templates as $template)
+                    <option value="{{$template->id}}">{{$template->name}}</option>
+                    @endforeach
+                </select>
+                <input type="hidden" id="parent_id-2" name="item_id" value="">
+                <button type="submit" class="px-2 bg-green-500" style="border: 1px solid black; margin-bottom: 20px; width: 200px">Dodaj Formularz</button>
+            </form>
+            <form action="{{ route('items.store') }}" method="POST">
+                @csrf
+                <input type="hidden" id="protocol_id" name="protocol_id" value="{{$protocol->id}}">
+                <input type="text" name="name" placeholder="Item name" required style="border: 1px solid black; width: 300px; margin-bottom: 20px">
+                <input type="hidden" id="parent_id" name="parent_id" value="">
+                <button type="submit" class="px-2 bg-green-500" style="border: 1px solid black; margin-bottom: 20px; width: 200px">Dodaj Obiekt</button>
+            </form>
+            <form action="{{ route('items.update') }}" method="POST">
+                @csrf
+                <input type="hidden" id="parent_id-4" name="parent_id" value="">
+                <input type="text" name="name" placeholder="Item name" required style="border: 1px solid black; width: 300px; margin-bottom: 20px">
+                <button type="submit" class="px-2 bg-blue-500" style="border: 1px solid black; margin-bottom: 20px; width: 200px">Zmień Nazwę Obiektu</button>
+            </form>
+
+
+            <form action="{{ route('items.destroy') }}" method="POST">
+                @csrf
+                <input type="hidden" id="parent_id-3" name="parent_id" value="" />
+                <button type="submit" class="px-2 bg-red-500" style="border: 1px solid black; margin-bottom: 20px; width: 200px">Usuń Obiekt</button>
+            </form>
+        </div>
+
         @endif
         <div id="form-data-container"></div>
     </div>
@@ -73,39 +86,8 @@
     });
 
 
-    function getFormData(formId) {
-        // Tworzymy nowy obiekt XMLHttpRequest
-        var xhr = new XMLHttpRequest();
-
-        // Definiujemy metodę i adres URL żądania
-        xhr.open('GET', '/form-data/' + formId, true);
-
-        // Ustawiamy nagłówek żądania
-        xhr.setRequestHeader('Content-Type', 'application/json');
-
-        // Ustawiamy funkcję obsługi zdarzenia dla zmiany stanu żądania
-        xhr.onreadystatechange = function() {
-            // Sprawdzamy, czy żądanie zostało zakończone
-            if (xhr.readyState === XMLHttpRequest.DONE) {
-                // Sprawdzamy status odpowiedzi
-                if (xhr.status === 200) {
-                    // Parsujemy odpowiedź jako JSON i wyświetlamy ją w konsoli
-                    var data = JSON.parse(xhr.responseText);
-                    console.log(data); // Handle success response
-                } else {
-                    console.error('Request failed: ' + xhr.status); // Handle error
-                }
-            }
-        };
-
-        // Wysyłamy żądanie
-        xhr.send();
-    }
-
-    // Wywołujemy funkcję getFormData z id formularza i przechwytujemy odpowiedź asynchronicznie
-    getFormData(1);
-
     var selectedItem = null;
+
     var clearBtn = document.getElementById("clear");
 
     function clearSelectedItem() {
@@ -127,11 +109,27 @@
         if (selectedItem) {
             selectedItem.setAttribute('style', 'font-weight:normal');
         }
+
         selectedItem = item;
         selectedItem.setAttribute('style', 'font-weight:bold');
         document.getElementById('parent_id').value = selectedItem.getAttribute('data-id');
         document.getElementById('parent_id-2').value = selectedItem.getAttribute('data-id');
+        document.getElementById('parent_id-3').value = selectedItem.getAttribute('data-id');
+        document.getElementById('parent_id-4').value = selectedItem.getAttribute('data-id');
+
         clearBtn.style.display = "block";
         document.getElementById('table-container').style.display = "block"; // Show the table
     }
+
+
+
+
+    @if(null !== session('form'))
+    handleClick(document.querySelector("#form_item_{{$form->id}}"))
+    @elseif(null !== session('item'))
+    @php
+    $item = session('item')
+    @endphp
+    handleClick(document.querySelector("#item_{{$item}}"))
+    @endif
 </script>

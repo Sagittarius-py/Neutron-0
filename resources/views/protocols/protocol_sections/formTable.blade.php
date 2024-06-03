@@ -1,3 +1,12 @@
+@php
+if(session('form') != null){
+$form = session('form');
+}
+if(session('templates') != null){
+$templates = session('templates');
+}
+@endphp
+
 <table class="table-auto w-full border-collapse border">
     <thead class="h-24">
         <tr>
@@ -96,5 +105,3 @@
         });
     });
 </script>
-
-
