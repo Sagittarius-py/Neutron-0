@@ -40,14 +40,3 @@ Kluczowe cechy projektu obejmują:
 `php artisan migrate`
 
 `php artisan serve`
-
-## Baza danych
-![ERD](/database/migrations/2024_04_22_222416_erd.svg)
-
-# TODO
-<ol>
-<li>Naprawić migracje (zamiast nullable() lepiej default(''))</li>
-<li>Kontrolery</li>
-<li>Porządek (cleanup stare kontrolery)</li>
-<li>Widoki</li>
-</ol>
